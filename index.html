@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="welcome-message" id="welcomeMessage" role="status">Welcome to my portfolio page!</div>
   <header class="hero" id="home">
     <nav class="navbar container">
       <a class="brand" href="#home">OE</a>
@@ -15,6 +16,7 @@
         <a href="#about">About</a><a href="#education">Education</a><a href="#experience">Experience</a>
         <a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
       </div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">Dark Mode</button>
     </nav>
     <div class="hero-content container">
       <div class="hero-text">
@@ -65,7 +67,12 @@
       <div class="container">
         <p class="section-label">ACADEMIC WORK</p><h2 class="section-title">Projects & Activities</h2>
         <div class="card-grid three">
-          <article class="card highlight"><span class="card-tag">Project</span><h3>Merchant Onboarding Process Improvement – Klickit</h3><p>Worked with Klickit’s CEO to gather requirements and develop a v0 prototype that simplified merchant onboarding.</p><p>Applied Scrum practices to manage the backlog, sprints, scope, schedules, budgets, and risks.</p></article>
+          <article class="card highlight"><span class="card-tag">Project</span><h3>Merchant Onboarding Process Improvement – Klickit</h3><p>Worked with Klickit’s CEO to gather requirements and develop a v0 prototype that simplified merchant onboarding.</p><p>Applied Scrum practices to manage the backlog, sprints, scope, schedules, budgets, and risks.</p>
+            <button class="project-details-btn" id="projectDetailsBtn" type="button" aria-expanded="false">Show Project Details</button>
+            <div class="project-extra" id="projectExtra" hidden>
+              <p><strong>Project focus:</strong> simplifying the merchant onboarding journey through requirement gathering, prototyping, sprint planning, budget planning, and risk management.</p>
+            </div>
+          </article>
           <article class="card"><span class="card-tag">Sep 2024 – May 2025</span><h3>Public Relations Manager</h3><p class="org">Business Association – AUC</p><p>Planned events, coordinated guest speakers, and collaborated with alumni and university departments.</p></article>
           <article class="card"><span class="card-tag">Feb 2024 – May 2024</span><h3>Ticket Sales Supervisor</h3><p class="org">Student Union – AUC</p><p>Developed sales strategies, improved daily operations, and received the Most Innovative Ticket Sales Supervisor certificate.</p></article>
           <article class="card"><span class="card-tag">Sep 2023 – May 2024</span><h3>Multimedia Head</h3><p class="org">3alRaseef Club – AUC</p><p>Managed social media platforms and designed creative content to promote student events.</p></article>
@@ -76,8 +83,20 @@
     <section class="section" id="skills">
       <div class="container">
         <p class="section-label">CAPABILITIES</p><h2 class="section-title">Skills</h2>
-        <div class="skills-layout">
-          <div class="skill-group"><h3>Technical & Business</h3><div class="chips"><span>Microsoft Excel</span><span>Power BI</span><span>PowerPoint</span><span>Figma</span><span>v0</span><span>Microsoft Word</span><span>Microsoft Access</span><span>C++</span><span>Competitive Analysis</span><span>Market Research</span><span>Campaign Ideation</span><span>Social Media Analysis</span><span>Agile</span><span>Scrum</span><span>Sprint Planning</span><span>Requirements Gathering</span><span>Stakeholder Communication</span></div></div>
+        <div class="skills-controls">
+          <button class="btn secondary small-btn" id="toggleSkillsBtn" type="button" aria-expanded="true">Hide Skills</button>
+        </div>
+        <div class="skills-layout" id="skillsContent">
+          <div class="skill-group"><h3>Technical & Business</h3><div class="chips" id="technicalSkillsList"><span>Microsoft Excel</span><span>Power BI</span><span>PowerPoint</span><span>Figma</span><span>v0</span><span>Microsoft Word</span><span>Microsoft Access</span><span>C++</span><span>Competitive Analysis</span><span>Market Research</span><span>Campaign Ideation</span><span>Social Media Analysis</span><span>Agile</span><span>Scrum</span><span>Sprint Planning</span><span>Requirements Gathering</span><span>Stakeholder Communication</span></div>
+            <div class="skill-adder">
+              <label for="newSkill">Add a skill:</label>
+              <div class="skill-adder-row">
+                <input id="newSkill" type="text" placeholder="e.g. Python" maxlength="40">
+                <button id="addSkillBtn" class="btn primary small-btn" type="button">Add Skill</button>
+              </div>
+              <p class="form-message" id="skillMessage" aria-live="polite"></p>
+            </div>
+          </div>
           <div class="skill-group"><h3>Soft Skills</h3><div class="chips"><span>Communication</span><span>Teamwork</span><span>Problem-Solving</span><span>Creativity</span><span>Organization</span><span>Attention to Detail</span><span>Presentation Skills</span></div></div>
           <div class="skill-group"><h3>Languages</h3><div class="language-list"><div><strong>Arabic</strong><span>Native</span></div><div><strong>English</strong><span>Fluent</span></div><div><strong>Turkish</strong><span>Intermediate</span></div></div></div>
         </div>
@@ -86,12 +105,33 @@
 
     <section class="section contact-section" id="contact">
       <div class="container contact-card">
-        <div><p class="section-label">GET IN TOUCH</p><h2 class="section-title">Contact</h2><p>I am open to professional opportunities, internships, projects, and collaborations.</p></div>
+        <div>
+          <p class="section-label">GET IN TOUCH</p><h2 class="section-title">Contact</h2>
+          <p>I am open to professional opportunities, internships, projects, and collaborations.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <h3>Send a Message</h3>
+            <label for="contactName">Name</label>
+            <input id="contactName" name="name" type="text" placeholder="Your name">
+            <span class="field-error" id="nameError"></span>
+
+            <label for="contactEmail">Email</label>
+            <input id="contactEmail" name="email" type="email" placeholder="name@example.com">
+            <span class="field-error" id="emailError"></span>
+
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="message" rows="5" placeholder="Write your message"></textarea>
+            <span class="field-error" id="messageError"></span>
+
+            <button class="btn contact-submit" type="submit">Validate Message</button>
+            <p class="form-message" id="formMessage" aria-live="polite"></p>
+          </form>
+        </div>
         <div class="contact-links"><a href="mailto:omniaelshaer@aucegypt.edu">omniaelshaer@aucegypt.edu</a><a href="tel:+201202588067">+20 120 258 8067</a><a href="https://www.linkedin.com/in/oumniaelshaer" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></div>
       </div>
     </section>
   </main>
 
   <footer><div class="container footer-content"><p>© 2026 Oumnia Elshaer</p><a href="#home">Back to top ↑</a></div></footer>
+  <script src="script.js"></script>
 </body>
 </html>
