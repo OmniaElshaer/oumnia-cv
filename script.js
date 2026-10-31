@@ -150,6 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadReposBtn = document.getElementById("loadReposBtn");
   const repoStatus = document.getElementById("repoStatus");
   const repoList = document.getElementById("repoList");
+  // Repositories that should not be shown on the page (add more names here if needed).
+  const HIDDEN_REPOS = ["lab"];
 
   async function loadRepos() {
     const username = githubUser.value.trim();
@@ -164,9 +166,10 @@ document.addEventListener("DOMContentLoaded", () => {
     loadReposBtn.disabled = true;
 
     try {
-      const repos = await getJSON(
+      const allRepos = await getJSON(
         `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=12`
       );
+      const repos = allRepos.filter((repo) => !HIDDEN_REPOS.includes(repo.name.toLowerCase()));
 
       if (repos.length === 0) {
         setStatus(repoStatus, `${username} has no public repositories yet.`);
